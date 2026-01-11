@@ -28,7 +28,7 @@ class TableWidget(QWidget):
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setMinimumSize(900, 500)
+        self.setMinimumSize(700, 380)
 
     def paintEvent(self, event):
         """Draw the poker table."""
@@ -39,18 +39,18 @@ class TableWidget(QWidget):
         h = self.height()
         
         # Table dimensions
-        table_margin = 60
+        table_margin = 40
         table_width = w - 2 * table_margin
         table_height = h - 2 * table_margin
         
-        # Outer border (wood grain effect)
+        # Outer border (Dark Green/Black)
         border_gradient = QLinearGradient(0, 0, 0, h)
-        border_gradient.setColorAt(0, QColor("#8B4513"))
-        border_gradient.setColorAt(0.5, QColor("#A0522D"))
-        border_gradient.setColorAt(1, QColor("#654321"))
+        border_gradient.setColorAt(0, QColor("#051005"))
+        border_gradient.setColorAt(0.5, QColor("#0a250a"))
+        border_gradient.setColorAt(1, QColor("#020502"))
         
         painter.setBrush(QBrush(border_gradient))
-        painter.setPen(QPen(QColor("#4a3520"), 3))
+        painter.setPen(QPen(QColor("#00ff00"), 2))
         painter.drawRoundedRect(
             table_margin - 15, table_margin - 15,
             table_width + 30, table_height + 30,
@@ -59,12 +59,12 @@ class TableWidget(QWidget):
         
         # Felt (green) with gradient
         felt_gradient = QRadialGradient(w / 2, h / 2, max(table_width, table_height) / 2)
-        felt_gradient.setColorAt(0, QColor("#1a7a3e"))
-        felt_gradient.setColorAt(0.7, QColor("#0d5c2e"))
-        felt_gradient.setColorAt(1, QColor("#064420"))
+        felt_gradient.setColorAt(0, QColor("#0d5c2e"))
+        felt_gradient.setColorAt(0.7, QColor("#0a4520"))
+        felt_gradient.setColorAt(1, QColor("#052510"))
         
         painter.setBrush(QBrush(felt_gradient))
-        painter.setPen(QPen(QColor("#0a4d24"), 4))
+        painter.setPen(QPen(QColor("#00ff00"), 2))
         painter.drawRoundedRect(
             table_margin, table_margin,
             table_width, table_height,
@@ -73,7 +73,7 @@ class TableWidget(QWidget):
         
         # Inner decorative line
         painter.setBrush(Qt.BrushStyle.NoBrush)
-        painter.setPen(QPen(QColor("#2a9a5e"), 2, Qt.PenStyle.DotLine))
+        painter.setPen(QPen(QColor("#00ff00"), 1, Qt.PenStyle.DotLine))
         inner_margin = 25
         painter.drawRoundedRect(
             table_margin + inner_margin, table_margin + inner_margin,
@@ -108,32 +108,32 @@ class GameScreen(QWidget):
         # Game container
         self.game_container = QWidget()
         self.game_container.setObjectName("gameContainer")
-        self.game_container.setStyleSheet("background: #0a0a14;")
+        # Style is handled by stylesheet
         
         game_layout = QVBoxLayout(self.game_container)
-        game_layout.setContentsMargins(20, 20, 20, 10)
+        game_layout.setContentsMargins(10, 10, 10, 5)
         
         # Top bar with hand info
         top_bar = QHBoxLayout()
         
         self.hand_label = QLabel("Hand #1")
-        self.hand_label.setFont(QFont("Segoe UI", 14))
-        self.hand_label.setStyleSheet("color: #888;")
+        self.hand_label.setFont(QFont("Segoe UI", 11))
+        self.hand_label.setStyleSheet("color: #ffffff;")
         
         self.phase_label = QLabel("")
         self.phase_label.setObjectName("phaseLabel")
-        self.phase_label.setFont(QFont("Segoe UI", 14, QFont.Weight.Bold))
+        self.phase_label.setFont(QFont("Segoe UI", 11, QFont.Weight.Bold))
         
         self.back_btn = QPushButton("← Back to Setup")
         self.back_btn.setStyleSheet("""
             QPushButton {
                 background: transparent;
-                color: #888;
+                color: #ffffff;
                 border: none;
                 font-size: 12px;
             }
             QPushButton:hover {
-                color: #00d9ff;
+                color: #00ff00;
             }
         """)
         self.back_btn.clicked.connect(self._on_back)
@@ -146,7 +146,7 @@ class GameScreen(QWidget):
         
         # Table area
         self.table_widget = TableWidget()
-        self.table_widget.setMinimumSize(1000, 550)
+        self.table_widget.setMinimumSize(750, 400)
         
         # Create player widgets (positioned absolutely on table)
         self.player_widgets: List[PlayerWidget] = []
@@ -157,9 +157,9 @@ class GameScreen(QWidget):
         
         # Community cards container (centered on table)
         self.community_container = QWidget(self.table_widget)
-        self.community_container.setFixedSize(350, 90)
+        self.community_container.setFixedSize(280, 75)
         community_layout = QHBoxLayout(self.community_container)
-        community_layout.setSpacing(8)
+        community_layout.setSpacing(5)
         community_layout.setContentsMargins(0, 0, 0, 0)
         
         self.community_cards: List[MiniCardWidget] = []
@@ -172,48 +172,50 @@ class GameScreen(QWidget):
         # Pot display
         self.pot_label = QLabel(self.table_widget)
         self.pot_label.setObjectName("potLabel")
-        self.pot_label.setFont(QFont("Segoe UI", 24, QFont.Weight.Bold))
+        self.pot_label.setFont(QFont("Segoe UI", 16, QFont.Weight.Bold))
         self.pot_label.setStyleSheet("""
             background: rgba(0, 0, 0, 0.6);
-            color: #ffd700;
-            border-radius: 15px;
-            padding: 8px 20px;
+            color: #ffffff;
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            padding: 5px 15px;
         """)
         self.pot_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         
         # Action panel
         self.action_panel = ActionPanel()
         self.action_panel.action_selected.connect(self._on_human_action)
-        self.action_panel.setFixedHeight(180)
+        self.action_panel.setFixedHeight(130)
         self.action_panel.hide()
         
         # Winner announcement
         self.winner_label = QLabel(self.table_widget)
-        self.winner_label.setFont(QFont("Segoe UI", 20, QFont.Weight.Bold))
+        self.winner_label.setFont(QFont("Segoe UI", 14, QFont.Weight.Bold))
         self.winner_label.setStyleSheet("""
-            background: rgba(255, 215, 0, 0.9);
-            color: #1a1a2e;
-            border-radius: 15px;
-            padding: 15px 30px;
+            background: rgba(0, 128, 0, 0.9);
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            border-radius: 10px;
+            padding: 10px 20px;
         """)
         self.winner_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.winner_label.hide()
         
         # Next hand button
         self.next_hand_btn = QPushButton("Next Hand →", self.table_widget)
-        self.next_hand_btn.setFont(QFont("Segoe UI", 14, QFont.Weight.Bold))
+        self.next_hand_btn.setFont(QFont("Segoe UI", 11, QFont.Weight.Bold))
         self.next_hand_btn.setStyleSheet("""
             QPushButton {
                 background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-                    stop:0 #00c851, stop:1 #00a040);
-                border: 2px solid #00d861;
-                border-radius: 10px;
-                padding: 10px 30px;
+                    stop:0 #008000, stop:1 #006000);
+                border: 2px solid #00ff00;
+                border-radius: 8px;
+                padding: 8px 20px;
                 color: white;
             }
             QPushButton:hover {
                 background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-                    stop:0 #00d861, stop:1 #00b850);
+                    stop:0 #00a000, stop:1 #008000);
             }
         """)
         self.next_hand_btn.clicked.connect(self._start_new_hand)

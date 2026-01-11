@@ -23,22 +23,22 @@ class PlayerWidget(QFrame):
         self._is_winner = False
         
         self.setObjectName("playerFrame")
-        self.setFixedSize(180, 160)
+        self.setFixedSize(145, 130)
         self._setup_ui()
 
     def _setup_ui(self):
         """Setup the player widget layout."""
         self.setStyleSheet("""
             QFrame#playerFrame {
-                background: rgba(22, 33, 62, 0.9);
-                border: 3px solid #0f3460;
+                background: rgba(10, 37, 10, 0.9);
+                border: 3px solid #153515;
                 border-radius: 12px;
             }
         """)
         
         main_layout = QVBoxLayout(self)
-        main_layout.setContentsMargins(8, 8, 8, 8)
-        main_layout.setSpacing(4)
+        main_layout.setContentsMargins(5, 5, 5, 5)
+        main_layout.setSpacing(2)
         
         # Top row: Position badges
         top_row = QHBoxLayout()
@@ -49,18 +49,18 @@ class PlayerWidget(QFrame):
             background: #ffffff;
             color: #1a1a2e;
             font-weight: bold;
-            font-size: 11px;
-            border-radius: 10px;
-            padding: 2px 6px;
+            font-size: 9px;
+            border-radius: 8px;
+            padding: 1px 4px;
         """)
-        self.dealer_label.setFixedSize(20, 20)
+        self.dealer_label.setFixedSize(16, 16)
         self.dealer_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.dealer_label.hide()
         
         self.blind_label = QLabel("")
         self.blind_label.setStyleSheet("""
-            background: #ffd700;
-            color: #1a1a2e;
+            background: #ffffff;
+            color: #000000;
             font-weight: bold;
             font-size: 10px;
             border-radius: 8px;
@@ -75,15 +75,17 @@ class PlayerWidget(QFrame):
         # Name and avatar row
         name_row = QHBoxLayout()
         
-        self.avatar_label = QLabel("👤")
-        self.avatar_label.setFont(QFont("Segoe UI Emoji", 24))
+        # Player type indicator (text instead of emoji)
+        self.avatar_label = QLabel("")
+        self.avatar_label.setFont(QFont("Georgia", 11, QFont.Weight.Bold))
+        self.avatar_label.setFixedWidth(50)
         self.avatar_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         
         name_info = QVBoxLayout()
         
         self.name_label = QLabel("Empty")
         self.name_label.setObjectName("playerName")
-        self.name_label.setFont(QFont("Segoe UI", 12, QFont.Weight.Bold))
+        self.name_label.setFont(QFont("Segoe UI", 10, QFont.Weight.Bold))
         self.name_label.setStyleSheet("color: #ffffff;")
         
         self.type_label = QLabel("")
@@ -100,8 +102,8 @@ class PlayerWidget(QFrame):
         
         self.chips_label = QLabel("$0")
         self.chips_label.setObjectName("playerChips")
-        self.chips_label.setFont(QFont("Segoe UI", 13, QFont.Weight.Bold))
-        self.chips_label.setStyleSheet("color: #00c851;")
+        self.chips_label.setFont(QFont("Segoe UI", 10, QFont.Weight.Bold))
+        self.chips_label.setStyleSheet("color: #00ff00;")
         
         chips_row.addWidget(self.chips_label)
         chips_row.addStretch()
@@ -112,8 +114,8 @@ class PlayerWidget(QFrame):
         
         self.card1 = CardWidget()
         self.card2 = CardWidget()
-        self.card1.setFixedSize(50, 70)
-        self.card2.setFixedSize(50, 70)
+        self.card1.setFixedSize(38, 52)
+        self.card2.setFixedSize(38, 52)
         
         cards_row.addStretch()
         cards_row.addWidget(self.card1)
@@ -125,8 +127,8 @@ class PlayerWidget(QFrame):
         
         self.action_label = QLabel("")
         self.action_label.setStyleSheet("""
-            background: rgba(0, 217, 255, 0.3);
-            color: #00d9ff;
+            background: rgba(0, 128, 0, 0.3);
+            color: #ffffff;
             font-size: 11px;
             font-weight: bold;
             border-radius: 8px;
@@ -138,7 +140,7 @@ class PlayerWidget(QFrame):
         self.bet_label = QLabel("")
         self.bet_label.setObjectName("playerBet")
         self.bet_label.setStyleSheet("""
-            color: #ffd700;
+            color: #ffffff;
             font-size: 12px;
             font-weight: bold;
         """)
@@ -157,7 +159,7 @@ class PlayerWidget(QFrame):
         # Setup glow effect for active player
         self.glow_effect = QGraphicsDropShadowEffect()
         self.glow_effect.setBlurRadius(20)
-        self.glow_effect.setColor(QColor(0, 217, 255, 150))
+        self.glow_effect.setColor(QColor(0, 255, 0, 150))
         self.glow_effect.setOffset(0, 0)
         self.glow_effect.setEnabled(False)
         self.setGraphicsEffect(self.glow_effect)
@@ -177,7 +179,7 @@ class PlayerWidget(QFrame):
         if player.is_small_blind:
             self.blind_label.setText("SB")
             self.blind_label.setStyleSheet("""
-                background: #3498db;
+                background: #008000;
                 color: white;
                 font-weight: bold;
                 font-size: 10px;
@@ -188,7 +190,7 @@ class PlayerWidget(QFrame):
         elif player.is_big_blind:
             self.blind_label.setText("BB")
             self.blind_label.setStyleSheet("""
-                background: #e74c3c;
+                background: #ff0000;
                 color: white;
                 font-weight: bold;
                 font-size: 10px;
@@ -233,7 +235,7 @@ class PlayerWidget(QFrame):
         if player.is_all_in:
             self.action_label.setText("ALL IN")
             self.action_label.setStyleSheet("""
-                background: rgba(155, 89, 182, 0.8);
+                background: rgba(255, 0, 0, 0.8);
                 color: white;
                 font-size: 11px;
                 font-weight: bold;
@@ -263,8 +265,8 @@ class PlayerWidget(QFrame):
         if active:
             self.setStyleSheet("""
                 QFrame#playerFrame {
-                    background: rgba(0, 217, 255, 0.15);
-                    border: 3px solid #00d9ff;
+                    background: rgba(0, 255, 0, 0.15);
+                    border: 3px solid #00ff00;
                     border-radius: 12px;
                 }
             """)
@@ -279,8 +281,8 @@ class PlayerWidget(QFrame):
         else:
             self.setStyleSheet("""
                 QFrame#playerFrame {
-                    background: rgba(22, 33, 62, 0.9);
-                    border: 3px solid #0f3460;
+                    background: rgba(10, 37, 10, 0.9);
+                    border: 3px solid #153515;
                     border-radius: 12px;
                 }
             """)
@@ -303,19 +305,19 @@ class PlayerWidget(QFrame):
         self._is_winner = is_winner
         
         if is_winner:
-            self.glow_effect.setColor(QColor(255, 215, 0, 200))
+            self.glow_effect.setColor(QColor(255, 255, 255, 200))
             self.glow_effect.setBlurRadius(30)
             self.glow_effect.setEnabled(True)
             
             self.setStyleSheet("""
                 QFrame#playerFrame {
-                    background: rgba(255, 215, 0, 0.2);
-                    border: 3px solid #ffd700;
+                    background: rgba(255, 255, 255, 0.2);
+                    border: 3px solid #ffffff;
                     border-radius: 12px;
                 }
             """)
         else:
-            self.glow_effect.setColor(QColor(0, 217, 255, 150))
+            self.glow_effect.setColor(QColor(0, 255, 0, 150))
             self.glow_effect.setBlurRadius(20)
             self.glow_effect.setEnabled(False)
 
@@ -323,11 +325,11 @@ class PlayerWidget(QFrame):
         """Display player's action briefly."""
         action_colors = {
             ActionType.FOLD: ("#cc0000", "FOLD"),
-            ActionType.CHECK: ("#2ecc71", "CHECK"),
-            ActionType.CALL: ("#2ecc71", f"CALL ${action.amount:,}"),
-            ActionType.BET: ("#f39c12", f"BET ${action.amount:,}"),
-            ActionType.RAISE: ("#f39c12", f"RAISE ${action.amount:,}"),
-            ActionType.ALL_IN: ("#9b59b6", f"ALL IN ${action.amount:,}"),
+            ActionType.CHECK: ("#008000", "CHECK"),
+            ActionType.CALL: ("#008000", f"CALL ${action.amount:,}"),
+            ActionType.BET: ("#cc0000", f"BET ${action.amount:,}"),
+            ActionType.RAISE: ("#cc0000", f"RAISE ${action.amount:,}"),
+            ActionType.ALL_IN: ("#ff0000", f"ALL IN ${action.amount:,}"),
         }
         
         color, text = action_colors.get(action.action_type, ("#888", ""))
@@ -356,8 +358,12 @@ class PlayerWidget(QFrame):
     def set_player_type(self, player_type: str):
         """Set the player type label (Human/AI model name)."""
         if player_type == "human":
-            self.type_label.setText("👤 Human")
-            self.type_label.setStyleSheet("color: #00d9ff; font-size: 10px;")
+            self.type_label.setText("Human")
+            self.type_label.setStyleSheet("color: #00ff00; font-size: 10px;")
+            self.avatar_label.setText("H")
+            self.avatar_label.setStyleSheet("color: #00ff00;")
         else:
-            self.type_label.setText(f"🤖 {player_type}")
-            self.type_label.setStyleSheet("color: #f39c12; font-size: 10px;")
+            self.type_label.setText(player_type[:8])  # Truncate long model names
+            self.type_label.setStyleSheet("color: #ffffff; font-size: 10px;")
+            self.avatar_label.setText("AI")
+            self.avatar_label.setStyleSheet("color: #ffffff;")

@@ -17,7 +17,7 @@ class MainWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("♠ Texas Hold'em Poker ♥")
+        self.setWindowTitle("Texas Hold'em Poker")
         self.setMinimumSize(1280, 800)
         self.setStyleSheet(MAIN_STYLESHEET)
         

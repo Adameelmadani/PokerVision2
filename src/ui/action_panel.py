@@ -34,26 +34,27 @@ class ActionPanel(QFrame):
         """Setup the action panel layout."""
         self.setStyleSheet("""
             QFrame#actionPanel {
-                background: rgba(26, 26, 46, 0.95);
-                border: 2px solid #0f3460;
+                background: rgba(5, 16, 5, 0.95);
+                border: 2px solid #153515;
                 border-radius: 15px;
                 padding: 10px;
             }
         """)
         
         main_layout = QVBoxLayout(self)
-        main_layout.setSpacing(15)
+        main_layout.setSpacing(8)
+        main_layout.setContentsMargins(10, 8, 10, 8)
         
         # Info row
         info_row = QHBoxLayout()
         
         self.pot_label = QLabel("Pot: $0")
-        self.pot_label.setFont(QFont("Segoe UI", 14, QFont.Weight.Bold))
-        self.pot_label.setStyleSheet("color: #ffd700;")
+        self.pot_label.setFont(QFont("Segoe UI", 11, QFont.Weight.Bold))
+        self.pot_label.setStyleSheet("color: #ffffff;")
         
         self.to_call_label = QLabel("To Call: $0")
-        self.to_call_label.setFont(QFont("Segoe UI", 12))
-        self.to_call_label.setStyleSheet("color: #00d9ff;")
+        self.to_call_label.setFont(QFont("Segoe UI", 10))
+        self.to_call_label.setStyleSheet("color: #00ff00;")
         
         info_row.addWidget(self.pot_label)
         info_row.addStretch()
@@ -61,34 +62,34 @@ class ActionPanel(QFrame):
         
         # Main action buttons row
         buttons_row = QHBoxLayout()
-        buttons_row.setSpacing(10)
+        buttons_row.setSpacing(6)
         
         # Fold button
         self.fold_btn = QPushButton("FOLD")
         self.fold_btn.setObjectName("foldButton")
-        self.fold_btn.setMinimumSize(100, 50)
-        self.fold_btn.setFont(QFont("Segoe UI", 12, QFont.Weight.Bold))
+        self.fold_btn.setFixedSize(80, 38)
+        self.fold_btn.setFont(QFont("Segoe UI", 10, QFont.Weight.Bold))
         self.fold_btn.clicked.connect(self._on_fold)
         
         # Check/Call button
         self.call_btn = QPushButton("CHECK")
         self.call_btn.setObjectName("checkButton")
-        self.call_btn.setMinimumSize(120, 50)
-        self.call_btn.setFont(QFont("Segoe UI", 12, QFont.Weight.Bold))
+        self.call_btn.setFixedSize(100, 38)
+        self.call_btn.setFont(QFont("Segoe UI", 10, QFont.Weight.Bold))
         self.call_btn.clicked.connect(self._on_call)
         
         # Raise/Bet button
         self.raise_btn = QPushButton("BET")
         self.raise_btn.setObjectName("betButton")
-        self.raise_btn.setMinimumSize(120, 50)
-        self.raise_btn.setFont(QFont("Segoe UI", 12, QFont.Weight.Bold))
+        self.raise_btn.setFixedSize(80, 38)
+        self.raise_btn.setFont(QFont("Segoe UI", 10, QFont.Weight.Bold))
         self.raise_btn.clicked.connect(self._on_raise)
         
         # All-In button
         self.allin_btn = QPushButton("ALL IN")
         self.allin_btn.setObjectName("allInButton")
-        self.allin_btn.setMinimumSize(100, 50)
-        self.allin_btn.setFont(QFont("Segoe UI", 12, QFont.Weight.Bold))
+        self.allin_btn.setFixedSize(80, 38)
+        self.allin_btn.setFont(QFont("Segoe UI", 10, QFont.Weight.Bold))
         self.allin_btn.clicked.connect(self._on_allin)
         
         buttons_row.addWidget(self.fold_btn)
@@ -98,11 +99,11 @@ class ActionPanel(QFrame):
         
         # Raise slider row
         slider_row = QHBoxLayout()
-        slider_row.setSpacing(15)
+        slider_row.setSpacing(10)
         
         self.raise_label = QLabel("Raise:")
-        self.raise_label.setFont(QFont("Segoe UI", 12))
-        self.raise_label.setStyleSheet("color: #f39c12;")
+        self.raise_label.setFont(QFont("Segoe UI", 10))
+        self.raise_label.setStyleSheet("color: #ffffff;")
         
         self.raise_slider = QSlider(Qt.Orientation.Horizontal)
         self.raise_slider.setMinimum(0)
@@ -114,8 +115,9 @@ class ActionPanel(QFrame):
         self.raise_amount.setMinimum(0)
         self.raise_amount.setMaximum(1000000)
         self.raise_amount.setSingleStep(self._big_blind)
-        self.raise_amount.setFont(QFont("Segoe UI", 12))
-        self.raise_amount.setMinimumWidth(120)
+        self.raise_amount.setFont(QFont("Segoe UI", 10))
+        self.raise_amount.setMinimumWidth(90)
+        self.raise_amount.setMaximumWidth(100)
         self.raise_amount.valueChanged.connect(self._on_spinbox_change)
         
         slider_row.addWidget(self.raise_label)
@@ -133,19 +135,19 @@ class ActionPanel(QFrame):
         self.btn_2x = QPushButton("2x Pot")
         
         for btn in [self.btn_min, self.btn_half, self.btn_3_4, self.btn_pot, self.btn_2x]:
-            btn.setFixedHeight(35)
-            btn.setFont(QFont("Segoe UI", 10))
+            btn.setFixedHeight(28)
+            btn.setFont(QFont("Segoe UI", 9))
             btn.setStyleSheet("""
                 QPushButton {
-                    background: rgba(15, 52, 96, 0.8);
-                    border: 1px solid #0f3460;
+                    background: rgba(10, 37, 10, 0.8);
+                    border: 1px solid #153515;
                     border-radius: 6px;
-                    color: #00d9ff;
+                    color: #00ff00;
                     padding: 5px 10px;
                 }
                 QPushButton:hover {
-                    background: rgba(0, 217, 255, 0.2);
-                    border-color: #00d9ff;
+                    background: rgba(0, 255, 0, 0.2);
+                    border-color: #00ff00;
                 }
             """)
         

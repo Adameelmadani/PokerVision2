@@ -17,8 +17,8 @@ from ..engine.deck import Card, Suit
 class CardWidget(QFrame):
     """Widget displaying a playing card with animations."""
 
-    CARD_WIDTH = 70
-    CARD_HEIGHT = 100
+    CARD_WIDTH = 55
+    CARD_HEIGHT = 78
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -35,30 +35,30 @@ class CardWidget(QFrame):
         self.setStyleSheet("""
             QFrame#cardFrame {
                 background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-                    stop:0 #1e3a5f, stop:0.5 #0d2137, stop:1 #1e3a5f);
-                border: 2px solid #4a90d9;
+                    stop:0 #800000, stop:0.5 #600000, stop:1 #800000);
+                border: 2px solid #ffffff;
                 border-radius: 8px;
             }
         """)
         
         layout = QVBoxLayout(self)
-        layout.setContentsMargins(5, 5, 5, 5)
+        layout.setContentsMargins(3, 3, 3, 3)
         layout.setSpacing(0)
         
         # Top rank
         self.rank_label_top = QLabel("")
         self.rank_label_top.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop)
-        self.rank_label_top.setFont(QFont("Arial", 16, QFont.Weight.Bold))
+        self.rank_label_top.setFont(QFont("Arial", 12, QFont.Weight.Bold))
         
         # Center suit
         self.suit_label = QLabel("")
         self.suit_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.suit_label.setFont(QFont("Arial", 28))
+        self.suit_label.setFont(QFont("Arial", 20))
         
         # Bottom rank (inverted)
         self.rank_label_bottom = QLabel("")
         self.rank_label_bottom.setAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignBottom)
-        self.rank_label_bottom.setFont(QFont("Arial", 16, QFont.Weight.Bold))
+        self.rank_label_bottom.setFont(QFont("Arial", 12, QFont.Weight.Bold))
         
         layout.addWidget(self.rank_label_top)
         layout.addWidget(self.suit_label, 1)
@@ -82,7 +82,7 @@ class CardWidget(QFrame):
             return
         
         self._face_up = True
-        color = "#cc0000" if self._card.suit.color == "red" else "#1a1a1a"
+        color = "#cc0000" if self._card.suit.color == "red" else "#000000"
         
         self.setStyleSheet(f"""
             QFrame#cardFrame {{
@@ -106,8 +106,8 @@ class CardWidget(QFrame):
         self.setStyleSheet("""
             QFrame#cardFrame {
                 background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-                    stop:0 #1e3a5f, stop:0.5 #0d2137, stop:1 #1e3a5f);
-                border: 2px solid #4a90d9;
+                    stop:0 #800000, stop:0.5 #600000, stop:1 #800000);
+                border: 2px solid #ffffff;
                 border-radius: 8px;
             }
             QLabel {
@@ -118,7 +118,7 @@ class CardWidget(QFrame):
         self.rank_label_top.setText("")
         self.suit_label.setText("🂠")
         self.rank_label_bottom.setText("")
-        self.suit_label.setStyleSheet("color: #4a90d9; font-size: 36px;")
+        self.suit_label.setStyleSheet("color: #ffffff; font-size: 24px;")
 
     def _animate_flip(self):
         """Animate card flip."""
@@ -176,8 +176,8 @@ class CardWidget(QFrame):
         if highlighted:
             self.setStyleSheet(self.styleSheet() + """
                 QFrame#cardFrame {
-                    border: 3px solid #ffd700;
-                    box-shadow: 0 0 15px #ffd700;
+                    border: 3px solid #00ff00;
+                    box-shadow: 0 0 15px #00ff00;
                 }
             """)
         else:
@@ -191,8 +191,8 @@ class CardWidget(QFrame):
 class MiniCardWidget(QFrame):
     """Smaller card widget for community cards or compact display."""
 
-    CARD_WIDTH = 55
-    CARD_HEIGHT = 80
+    CARD_WIDTH = 48
+    CARD_HEIGHT = 68
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -207,8 +207,8 @@ class MiniCardWidget(QFrame):
         self.setStyleSheet("""
             QFrame {
                 background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-                    stop:0 #1e3a5f, stop:0.5 #0d2137, stop:1 #1e3a5f);
-                border: 2px solid #4a90d9;
+                    stop:0 #800000, stop:0.5 #600000, stop:1 #800000);
+                border: 2px solid #ffffff;
                 border-radius: 6px;
             }
         """)
@@ -219,11 +219,11 @@ class MiniCardWidget(QFrame):
         
         self.rank_label = QLabel("")
         self.rank_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.rank_label.setFont(QFont("Arial", 14, QFont.Weight.Bold))
+        self.rank_label.setFont(QFont("Arial", 11, QFont.Weight.Bold))
         
         self.suit_label = QLabel("")
         self.suit_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.suit_label.setFont(QFont("Arial", 20))
+        self.suit_label.setFont(QFont("Arial", 16))
         
         layout.addWidget(self.rank_label)
         layout.addWidget(self.suit_label)
@@ -233,7 +233,7 @@ class MiniCardWidget(QFrame):
         self._card = card
         self._face_up = True
         
-        color = "#cc0000" if card.suit.color == "red" else "#1a1a1a"
+        color = "#cc0000" if card.suit.color == "red" else "#000000"
         
         self.setStyleSheet(f"""
             QFrame {{
@@ -257,8 +257,8 @@ class MiniCardWidget(QFrame):
         self.setStyleSheet("""
             QFrame {
                 background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-                    stop:0 #1e3a5f, stop:0.5 #0d2137, stop:1 #1e3a5f);
-                border: 2px solid #4a90d9;
+                    stop:0 #800000, stop:0.5 #600000, stop:1 #800000);
+                border: 2px solid #ffffff;
                 border-radius: 6px;
             }
         """)

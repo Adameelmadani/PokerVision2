@@ -1,33 +1,32 @@
 """
 Stylesheet and theming for the poker application.
-PokerStars-inspired dark theme with green accents.
+Strict White/Dark Green/Red theme for casino feel.
 """
 
 # Color palette
 COLORS = {
-    'bg_dark': '#1a1a2e',
-    'bg_medium': '#16213e',
-    'bg_light': '#0f3460',
-    'accent': '#00d9ff',
-    'accent_green': '#00c851',
-    'accent_gold': '#ffd700',
-    'accent_red': '#ff4444',
+    'bg_dark': '#051005',      # Very dark green, almost black
+    'bg_medium': '#0a250a',    # Dark green
+    'bg_light': '#153515',     # Medium dark green
+    'accent': '#ffffff',       # White for text/icons
+    'accent_green': '#00ff00', # Bright green for highlights
+    'accent_red': '#ff0000',   # Red for danger/action
     'text_primary': '#ffffff',
-    'text_secondary': '#b0b0b0',
+    'text_secondary': '#cccccc',
     'table_felt': '#0d5c2e',
-    'table_border': '#8b4513',
-    'card_white': '#fefefe',
+    'table_border': '#021002', # Dark border
+    'card_white': '#ffffff',
     'card_red': '#cc0000',
-    'card_black': '#1a1a1a',
-    'button_primary': '#00c851',
+    'card_black': '#000000',
+    'button_primary': '#008000', # Standard green button
     'button_danger': '#cc0000',
-    'button_neutral': '#3d5a80',
+    'button_neutral': '#204020',
 }
 
 # Main application stylesheet
 MAIN_STYLESHEET = """
 QMainWindow {
-    background-color: #1a1a2e;
+    background-color: #051005;
 }
 
 QWidget {
@@ -41,8 +40,8 @@ QLabel {
 
 QPushButton {
     background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-        stop:0 #4a90d9, stop:1 #357abd);
-    border: 2px solid #5a9fd4;
+        stop:0 #1a4a1a, stop:1 #0e2e0e);
+    border: 2px solid #2a6a2a;
     border-radius: 8px;
     padding: 10px 20px;
     font-size: 14px;
@@ -53,68 +52,68 @@ QPushButton {
 
 QPushButton:hover {
     background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-        stop:0 #5aa0e9, stop:1 #4588c7);
-    border-color: #7ab8f5;
+        stop:0 #2a6a2a, stop:1 #1a4a1a);
+    border-color: #00ff00;
 }
 
 QPushButton:pressed {
     background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-        stop:0 #357abd, stop:1 #2a6298);
+        stop:0 #0e2e0e, stop:1 #051005);
 }
 
 QPushButton:disabled {
-    background: #555555;
-    border-color: #666666;
-    color: #888888;
+    background: #152515;
+    border-color: #203020;
+    color: #556655;
 }
 
 QPushButton#foldButton {
     background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-        stop:0 #d94452, stop:1 #c0392b);
-    border-color: #e74c3c;
+        stop:0 #800000, stop:1 #600000);
+    border-color: #ff0000;
 }
 
 QPushButton#foldButton:hover {
     background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-        stop:0 #e95463, stop:1 #d0493b);
+        stop:0 #a00000, stop:1 #800000);
 }
 
 QPushButton#callButton, QPushButton#checkButton {
     background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-        stop:0 #2ecc71, stop:1 #27ae60);
-    border-color: #3ddc84;
+        stop:0 #008000, stop:1 #006000);
+    border-color: #00ff00;
 }
 
 QPushButton#callButton:hover, QPushButton#checkButton:hover {
     background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-        stop:0 #3edc81, stop:1 #37be70);
+        stop:0 #00a000, stop:1 #008000);
 }
 
 QPushButton#raiseButton, QPushButton#betButton {
     background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-        stop:0 #f39c12, stop:1 #d68910);
-    border-color: #f5b041;
+        stop:0 #b30000, stop:1 #800000);
+    border-color: #ff0000;
 }
 
 QPushButton#raiseButton:hover, QPushButton#betButton:hover {
     background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-        stop:0 #f5ac22, stop:1 #e69920);
+        stop:0 #cc0000, stop:1 #a00000);
 }
 
 QPushButton#allInButton {
     background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-        stop:0 #9b59b6, stop:1 #8e44ad);
-    border-color: #a569c6;
+        stop:0 #ff0000, stop:1 #cc0000);
+    border-color: #ffffff;
 }
 
 QPushButton#allInButton:hover {
     background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-        stop:0 #ab69c6, stop:1 #9e54bd);
+        stop:0 #ff3333, stop:1 #ff0000);
 }
 
 QComboBox {
-    background-color: #16213e;
-    border: 2px solid #0f3460;
+    background-color: #0a250a;
+    border: 2px solid #153515;
     border-radius: 6px;
     padding: 8px 15px;
     font-size: 13px;
@@ -123,7 +122,7 @@ QComboBox {
 }
 
 QComboBox:hover {
-    border-color: #00d9ff;
+    border-color: #00ff00;
 }
 
 QComboBox::drop-down {
@@ -140,23 +139,23 @@ QComboBox::down-arrow {
 }
 
 QComboBox QAbstractItemView {
-    background-color: #16213e;
-    border: 2px solid #0f3460;
-    selection-background-color: #0f3460;
+    background-color: #0a250a;
+    border: 2px solid #153515;
+    selection-background-color: #153515;
     color: white;
 }
 
 QSlider::groove:horizontal {
-    border: 1px solid #0f3460;
+    border: 1px solid #153515;
     height: 10px;
-    background: #16213e;
+    background: #0a250a;
     border-radius: 5px;
 }
 
 QSlider::handle:horizontal {
     background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-        stop:0 #f39c12, stop:1 #d68910);
-    border: 2px solid #f5b041;
+        stop:0 #ffffff, stop:1 #cccccc);
+    border: 2px solid #ffffff;
     width: 20px;
     height: 20px;
     margin: -6px 0;
@@ -164,19 +163,18 @@ QSlider::handle:horizontal {
 }
 
 QSlider::handle:horizontal:hover {
-    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-        stop:0 #f5ac22, stop:1 #e69920);
+    background: #ffffff;
 }
 
 QSlider::sub-page:horizontal {
     background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
-        stop:0 #00c851, stop:1 #00d9ff);
+        stop:0 #008000, stop:1 #00ff00);
     border-radius: 5px;
 }
 
 QSpinBox, QLineEdit {
-    background-color: #16213e;
-    border: 2px solid #0f3460;
+    background-color: #0a250a;
+    border: 2px solid #153515;
     border-radius: 6px;
     padding: 8px;
     font-size: 13px;
@@ -184,11 +182,11 @@ QSpinBox, QLineEdit {
 }
 
 QSpinBox:focus, QLineEdit:focus {
-    border-color: #00d9ff;
+    border-color: #00ff00;
 }
 
 QGroupBox {
-    border: 2px solid #0f3460;
+    border: 2px solid #153515;
     border-radius: 10px;
     margin-top: 15px;
     padding-top: 15px;
@@ -199,24 +197,24 @@ QGroupBox::title {
     subcontrol-origin: margin;
     subcontrol-position: top center;
     padding: 0 10px;
-    color: #00d9ff;
+    color: #ffffff;
 }
 
 QScrollBar:vertical {
     border: none;
-    background: #16213e;
+    background: #0a250a;
     width: 12px;
     border-radius: 6px;
 }
 
 QScrollBar::handle:vertical {
-    background: #0f3460;
+    background: #153515;
     border-radius: 6px;
     min-height: 20px;
 }
 
 QScrollBar::handle:vertical:hover {
-    background: #00d9ff;
+    background: #00ff00;
 }
 
 QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
@@ -228,56 +226,56 @@ QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
 SETUP_STYLESHEET = """
 QWidget#setupContainer {
     background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-        stop:0 #1a1a2e, stop:0.5 #16213e, stop:1 #1a1a2e);
+        stop:0 #051005, stop:0.5 #0a250a, stop:1 #051005);
     border-radius: 20px;
 }
 
 QLabel#titleLabel {
-    font-size: 42px;
+    font-size: 34px;
     font-weight: bold;
-    color: #ffd700;
-    padding: 20px;
+    color: #ffffff;
+    padding: 10px;
 }
 
 QLabel#subtitleLabel {
     font-size: 18px;
-    color: #00d9ff;
+    color: #00ff00;
 }
 
 QFrame#seatFrame {
-    background: rgba(22, 33, 62, 0.8);
-    border: 2px solid #0f3460;
+    background: rgba(10, 37, 10, 0.8);
+    border: 2px solid #153515;
     border-radius: 15px;
-    padding: 15px;
+    padding: 6px;
 }
 
 QFrame#seatFrame:hover {
-    border-color: #00d9ff;
-    background: rgba(22, 33, 62, 0.95);
+    border-color: #00ff00;
+    background: rgba(10, 37, 10, 0.95);
 }
 
 QPushButton#startButton {
     background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-        stop:0 #00c851, stop:1 #00a040);
-    border: 3px solid #00d861;
+        stop:0 #008000, stop:1 #006000);
+    border: 3px solid #00ff00;
     border-radius: 15px;
-    padding: 15px 40px;
-    font-size: 20px;
+    padding: 6px 10px;
+    font-size: 18px;
     font-weight: bold;
     min-width: 200px;
 }
 
 QPushButton#startButton:hover {
     background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-        stop:0 #00d861, stop:1 #00b850);
-    border-color: #00e871;
+        stop:0 #00a000, stop:1 #008000);
+    border-color: #ffffff;
 }
 """
 
 # Game screen specific styles  
 GAME_STYLESHEET = """
 QWidget#gameContainer {
-    background: #0a0a14;
+    background: #051005;
 }
 
 QWidget#tableWidget {
@@ -287,40 +285,41 @@ QWidget#tableWidget {
 QLabel#potLabel {
     font-size: 28px;
     font-weight: bold;
-    color: #ffd700;
+    color: #ffffff;
     background: rgba(0, 0, 0, 0.6);
+    border: 2px solid #00ff00;
     border-radius: 15px;
     padding: 10px 25px;
 }
 
 QLabel#phaseLabel {
     font-size: 16px;
-    color: #00d9ff;
+    color: #ffffff;
     background: rgba(0, 0, 0, 0.5);
     border-radius: 10px;
     padding: 5px 15px;
 }
 
 QFrame#playerFrame {
-    background: rgba(22, 33, 62, 0.9);
-    border: 3px solid #0f3460;
+    background: rgba(10, 37, 10, 0.9);
+    border: 3px solid #153515;
     border-radius: 12px;
     padding: 8px;
 }
 
 QFrame#playerFrame[active="true"] {
-    border-color: #00d9ff;
-    background: rgba(0, 217, 255, 0.15);
+    border-color: #00ff00;
+    background: rgba(0, 255, 0, 0.15);
 }
 
 QFrame#playerFrame[folded="true"] {
     opacity: 0.5;
-    background: rgba(50, 50, 50, 0.7);
+    background: rgba(20, 20, 20, 0.7);
 }
 
 QFrame#playerFrame[winner="true"] {
-    border-color: #ffd700;
-    background: rgba(255, 215, 0, 0.2);
+    border-color: #ffffff;
+    background: rgba(255, 255, 255, 0.2);
 }
 
 QLabel#playerName {
@@ -331,18 +330,18 @@ QLabel#playerName {
 
 QLabel#playerChips {
     font-size: 13px;
-    color: #00c851;
+    color: #00ff00;
     font-weight: bold;
 }
 
 QLabel#playerBet {
     font-size: 12px;
-    color: #ffd700;
+    color: #ffffff;
 }
 
 QLabel#dealerButton {
     background: #ffffff;
-    color: #1a1a2e;
+    color: #000000;
     font-weight: bold;
     font-size: 11px;
     border-radius: 12px;
@@ -350,8 +349,8 @@ QLabel#dealerButton {
 }
 
 QFrame#actionPanel {
-    background: rgba(26, 26, 46, 0.95);
-    border: 2px solid #0f3460;
+    background: rgba(5, 16, 5, 0.95);
+    border: 2px solid #153515;
     border-radius: 15px;
     padding: 15px;
 }
@@ -359,22 +358,22 @@ QFrame#actionPanel {
 QLabel#raiseLabel {
     font-size: 18px;
     font-weight: bold;
-    color: #f39c12;
+    color: #ffffff;
 }
 """
 
 # Card widget styles
 CARD_STYLESHEET = """
 QFrame#cardFrame {
-    background: #fefefe;
-    border: 2px solid #333333;
+    background: #ffffff;
+    border: 2px solid #000000;
     border-radius: 8px;
 }
 
 QFrame#cardFrame[back="true"] {
     background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-        stop:0 #1e3a5f, stop:0.5 #0d2137, stop:1 #1e3a5f);
-    border-color: #4a90d9;
+        stop:0 #800000, stop:0.5 #600000, stop:1 #800000);
+    border-color: #ffffff;
 }
 
 QLabel#rankLabel {
@@ -391,7 +390,7 @@ QLabel#rankLabel[suit="red"] {
 }
 
 QLabel#rankLabel[suit="black"] {
-    color: #1a1a1a;
+    color: #000000;
 }
 
 QLabel#suitLabel[suit="red"] {
@@ -399,6 +398,6 @@ QLabel#suitLabel[suit="red"] {
 }
 
 QLabel#suitLabel[suit="black"] {
-    color: #1a1a1a;
+    color: #000000;
 }
 """
