@@ -127,15 +127,12 @@ QComboBox:hover {
 
 QComboBox::drop-down {
     border: none;
-    padding-right: 10px;
+    width: 0px;
 }
 
 QComboBox::down-arrow {
     image: none;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 8px solid white;
-    margin-right: 10px;
+    border: none;
 }
 
 QComboBox QAbstractItemView {

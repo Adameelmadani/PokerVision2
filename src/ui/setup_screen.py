@@ -60,8 +60,7 @@ class SeatWidget(QFrame):
             model_name = Path(model_path).stem
             self.type_combo.addItem(f"{model_name}", model_path)
         
-        self.type_combo.setMinimumWidth(130)
-        self.type_combo.setMaximumWidth(150)
+        self.type_combo.setFixedWidth(130)
         self.type_combo.setStyleSheet("""
             QComboBox {
                 padding: 3px 3px;
@@ -94,7 +93,7 @@ class SeatWidget(QFrame):
         
         layout.addWidget(seat_label)
         layout.addWidget(self.avatar_label)
-        layout.addWidget(self.type_combo)
+        layout.addWidget(self.type_combo, 0, Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(self.name_label)
         layout.addWidget(self.name_input)
         
@@ -201,7 +200,7 @@ class SetupScreen(QWidget):
         self.seat_widgets = []
         for i in range(6):
             seat = SeatWidget(i, self.models)
-            seat.setFixedSize(155, 175)
+            seat.setFixedSize(195, 175)
             self.seat_widgets.append(seat)
         
         # Position seats in grid
