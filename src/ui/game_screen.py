@@ -41,7 +41,7 @@ class TableWidget(QWidget):
         # Table dimensions
         table_margin = 40
         table_width = w - 2 * table_margin
-        table_height = h - 2 * table_margin
+        table_height = 450
         
         # Outer border (Dark Green/Black)
         border_gradient = QLinearGradient(0, 0, 0, h)
@@ -185,7 +185,10 @@ class GameScreen(QWidget):
         # Action panel
         self.action_panel = ActionPanel()
         self.action_panel.action_selected.connect(self._on_human_action)
-        self.action_panel.setFixedHeight(130)
+        self.action_panel.setFixedHeight(140)
+        sp = self.action_panel.sizePolicy()
+        sp.setRetainSizeWhenHidden(True)
+        self.action_panel.setSizePolicy(sp)
         self.action_panel.hide()
         
         # Winner announcement
@@ -244,12 +247,12 @@ class GameScreen(QWidget):
         # Player positions around oval table
         # Positions: 0=top-left, 1=top-right, 2=right, 3=bottom-right, 4=bottom-left, 5=left
         positions = [
-            (tw * 0.25, 20),           # 0: Top left
-            (tw * 0.60, 20),           # 1: Top right
-            (tw * 0.85, th * 0.40),    # 2: Right
-            (tw * 0.60, th * 0.75),    # 3: Bottom right
-            (tw * 0.25, th * 0.75),    # 4: Bottom left
-            (tw * 0.02, th * 0.40),    # 5: Left
+            (tw * 0.27, 20),           # 1: Top left
+            (tw * 0.60, 20),           # 2: Top right
+            (tw * 0.85, th * 0.40),    # 3: Right
+            (tw * 0.60, th * 0.73),    # 4: Bottom right
+            (tw * 0.27, th * 0.73),    # 5: Bottom left
+            (tw * 0.04, th * 0.40),    # 6: Left
         ]
         
         for i, pw in enumerate(self.player_widgets):
@@ -465,6 +468,14 @@ class GameScreen(QWidget):
         
         # Update pot
         self.pot_label.setText(f"Pot: ${state.pot_total:,}")
+        self.pot_label.adjustSize()
+        if self.table_widget:
+            tw = self.table_widget.width()
+            th = self.table_widget.height()
+            self.pot_label.move(
+                int((tw - self.pot_label.width()) / 2),
+                int((th - self.pot_label.height()) / 2 - 80)
+            )
         
         # Update player widgets
         for i, game_player in enumerate(state.players):

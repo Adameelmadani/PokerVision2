@@ -37,19 +37,19 @@ class ActionPanel(QFrame):
                 background: rgba(5, 16, 5, 0.95);
                 border: 2px solid #153515;
                 border-radius: 15px;
-                padding: 10px;
+                padding: 5px;
             }
         """)
         
         main_layout = QVBoxLayout(self)
-        main_layout.setSpacing(8)
-        main_layout.setContentsMargins(10, 8, 10, 8)
+        main_layout.setSpacing(4)
+        main_layout.setContentsMargins(0, 0, 0, 0)
         
         # Info row
         info_row = QHBoxLayout()
         
         self.pot_label = QLabel("Pot: $0")
-        self.pot_label.setFont(QFont("Segoe UI", 11, QFont.Weight.Bold))
+        self.pot_label.setFont(QFont("Segoe UI", 10, QFont.Weight.Bold))
         self.pot_label.setStyleSheet("color: #ffffff;")
         
         self.to_call_label = QLabel("To Call: $0")
@@ -65,31 +65,36 @@ class ActionPanel(QFrame):
         buttons_row.setSpacing(6)
         
         # Fold button
+        # Fold button
         self.fold_btn = QPushButton("FOLD")
         self.fold_btn.setObjectName("foldButton")
-        self.fold_btn.setFixedSize(80, 38)
+        self.fold_btn.setFixedSize(80, 35)
         self.fold_btn.setFont(QFont("Segoe UI", 10, QFont.Weight.Bold))
+        self.fold_btn.setStyleSheet("padding: 0px;")
         self.fold_btn.clicked.connect(self._on_fold)
         
         # Check/Call button
         self.call_btn = QPushButton("CHECK")
         self.call_btn.setObjectName("checkButton")
-        self.call_btn.setFixedSize(100, 38)
+        self.call_btn.setFixedSize(80, 35)
         self.call_btn.setFont(QFont("Segoe UI", 10, QFont.Weight.Bold))
+        self.call_btn.setStyleSheet("padding: 0px;")
         self.call_btn.clicked.connect(self._on_call)
         
         # Raise/Bet button
         self.raise_btn = QPushButton("BET")
         self.raise_btn.setObjectName("betButton")
-        self.raise_btn.setFixedSize(80, 38)
+        self.raise_btn.setFixedSize(80, 35)
         self.raise_btn.setFont(QFont("Segoe UI", 10, QFont.Weight.Bold))
+        self.raise_btn.setStyleSheet("padding: 0px;")
         self.raise_btn.clicked.connect(self._on_raise)
         
         # All-In button
         self.allin_btn = QPushButton("ALL IN")
         self.allin_btn.setObjectName("allInButton")
-        self.allin_btn.setFixedSize(80, 38)
+        self.allin_btn.setFixedSize(80, 35)
         self.allin_btn.setFont(QFont("Segoe UI", 10, QFont.Weight.Bold))
+        self.allin_btn.setStyleSheet("padding: 0px;")
         self.allin_btn.clicked.connect(self._on_allin)
         
         buttons_row.addWidget(self.fold_btn)
@@ -99,7 +104,7 @@ class ActionPanel(QFrame):
         
         # Raise slider row
         slider_row = QHBoxLayout()
-        slider_row.setSpacing(10)
+        slider_row.setSpacing(8)
         
         self.raise_label = QLabel("Raise:")
         self.raise_label.setFont(QFont("Segoe UI", 10))
@@ -118,6 +123,7 @@ class ActionPanel(QFrame):
         self.raise_amount.setFont(QFont("Segoe UI", 10))
         self.raise_amount.setMinimumWidth(90)
         self.raise_amount.setMaximumWidth(100)
+        self.raise_amount.setFixedHeight(35)
         self.raise_amount.valueChanged.connect(self._on_spinbox_change)
         
         slider_row.addWidget(self.raise_label)
@@ -126,7 +132,7 @@ class ActionPanel(QFrame):
         
         # Quick bet buttons row
         quick_row = QHBoxLayout()
-        quick_row.setSpacing(8)
+        quick_row.setSpacing(32)
         
         self.btn_min = QPushButton("Min")
         self.btn_half = QPushButton("½ Pot")
@@ -135,15 +141,17 @@ class ActionPanel(QFrame):
         self.btn_2x = QPushButton("2x Pot")
         
         for btn in [self.btn_min, self.btn_half, self.btn_3_4, self.btn_pot, self.btn_2x]:
-            btn.setFixedHeight(28)
-            btn.setFont(QFont("Segoe UI", 9))
+            btn.setFixedHeight(24)
+            btn.setFont(QFont("Segoe UI", 7))
             btn.setStyleSheet("""
                 QPushButton {
                     background: rgba(10, 37, 10, 0.8);
                     border: 1px solid #153515;
                     border-radius: 6px;
                     color: #00ff00;
-                    padding: 5px 10px;
+                    padding: 0px 5px;
+                    font-weight: 600;
+                    font-size: 14px;
                 }
                 QPushButton:hover {
                     background: rgba(0, 255, 0, 0.2);
