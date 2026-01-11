@@ -182,6 +182,34 @@ QSpinBox:focus, QLineEdit:focus {
     border-color: #00ff00;
 }
 
+QSpinBox::up-button, QSpinBox::down-button {
+    background: #153515;
+    border: 1px solid #204020;
+    border-radius: 2px;
+    width: 20px;
+}
+
+QSpinBox::up-button:hover, QSpinBox::down-button:hover {
+    background: #204020;
+    border-color: #00ff00;
+}
+
+QSpinBox::up-button:pressed, QSpinBox::down-button:pressed {
+    background: #0a250a;
+}
+
+QSpinBox::up-arrow {
+    image: url(assets/images/plus.svg);
+    width: 12px;
+    height: 12px;
+}
+
+QSpinBox::down-arrow {
+    image: url(assets/images/minus.svg);
+    width: 12px;
+    height: 12px;
+}
+
 QGroupBox {
     border: 2px solid #153515;
     border-radius: 10px;

@@ -7,7 +7,8 @@ from typing import List, Optional, Tuple
 
 from PyQt6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton,
-    QComboBox, QSpinBox, QFrame, QGridLayout, QGroupBox
+    QComboBox, QSpinBox, QFrame, QGridLayout, QGroupBox,
+    QAbstractSpinBox
 )
 from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtGui import QFont, QPainter, QColor, QBrush, QPen, QLinearGradient
@@ -177,15 +178,11 @@ class SetupScreen(QWidget):
         # Title with poker-style font
         title = QLabel("TEXAS HOLD'EM")
         title.setObjectName("titleLabel")
-        title.setFont(QFont("Georgia", 32, QFont.Weight.Bold))
+        title.setFont(QFont("Georgia", 24, QFont.Weight.Bold))
         title.setStyleSheet("color: #ffffff; letter-spacing: 3px;")
         title.setAlignment(Qt.AlignmentFlag.AlignCenter)
         
-        subtitle = QLabel("Configure Your Table")
-        subtitle.setObjectName("subtitleLabel")
-        subtitle.setFont(QFont("Georgia", 11))
-        subtitle.setStyleSheet("color: #00ff00; font-style: italic;")
-        subtitle.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
         
         # Seats configuration - arranged in oval
         seats_container = QWidget()
@@ -203,18 +200,25 @@ class SetupScreen(QWidget):
             seat.setFixedSize(195, 175)
             self.seat_widgets.append(seat)
         
-        # Position seats in grid
-        seats_layout.addWidget(self.seat_widgets[0], 0, 1)  # Top center-left
-        seats_layout.addWidget(self.seat_widgets[1], 0, 2)  # Top center-right
-        seats_layout.addWidget(self.seat_widgets[2], 1, 3)  # Right
-        seats_layout.addWidget(self.seat_widgets[3], 2, 2)  # Bottom center-right
-        seats_layout.addWidget(self.seat_widgets[4], 2, 1)  # Bottom center-left
-        seats_layout.addWidget(self.seat_widgets[5], 1, 0)  # Left
+        # Position seats in grid (2-row layout for compactness)
+        # Col 0: Left (S5)
+        # Col 1: Top-Left (S0) / Bot-Left (S4)
+        # Col 2: Spacer
+        # Col 3: Top-Right (S1) / Bot-Right (S3)
+        # Col 4: Right (S2)
         
-        # Empty spacer in center (no emoji)
+        seats_layout.addWidget(self.seat_widgets[5], 0, 0, 2, 1)  # Left (spans 2 rows)
+        seats_layout.addWidget(self.seat_widgets[0], 0, 1)        # Top-Left
+        seats_layout.addWidget(self.seat_widgets[4], 1, 1)        # Bot-Left
+        
+        seats_layout.addWidget(self.seat_widgets[1], 0, 3)        # Top-Right
+        seats_layout.addWidget(self.seat_widgets[3], 1, 3)        # Bot-Right
+        seats_layout.addWidget(self.seat_widgets[2], 0, 4, 2, 1)  # Right (spans 2 rows)
+        
+        # Center spacer
         center_spacer = QWidget()
-        center_spacer.setMinimumSize(100, 50)
-        seats_layout.addWidget(center_spacer, 1, 1, 1, 2)
+        center_spacer.setFixedSize(20, 20)
+        seats_layout.addWidget(center_spacer, 0, 2, 2, 1)         # Spacer (spans 2 rows)
         
         # Game settings
         settings_group = QGroupBox("Game Settings")
@@ -225,7 +229,7 @@ class SetupScreen(QWidget):
         # Starting chips
         chips_layout = QVBoxLayout()
         chips_label = QLabel("Starting Chips")
-        chips_label.setStyleSheet("color: #00ff00;")
+        chips_label.setStyleSheet("color: #ffffff;")
         self.chips_spin = QSpinBox()
         self.chips_spin.setRange(100, 1000000)
         self.chips_spin.setValue(10000)
@@ -249,7 +253,7 @@ class SetupScreen(QWidget):
         # Big blind
         bb_layout = QVBoxLayout()
         bb_label = QLabel("Big Blind")
-        bb_label.setStyleSheet("color: #ff0000;")
+        bb_label.setStyleSheet("color: #ffffff;")
         self.bb_spin = QSpinBox()
         self.bb_spin.setRange(2, 20000)
         self.bb_spin.setValue(100)
@@ -283,7 +287,7 @@ class SetupScreen(QWidget):
         
         # Assemble layout
         main_layout.addWidget(title)
-        main_layout.addWidget(subtitle)
+
         main_layout.addWidget(seats_container, 1)
         
         # Error label (moved above controls)
