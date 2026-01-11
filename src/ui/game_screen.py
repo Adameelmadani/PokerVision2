@@ -111,7 +111,8 @@ class GameScreen(QWidget):
         # Style is handled by stylesheet
         
         game_layout = QVBoxLayout(self.game_container)
-        game_layout.setContentsMargins(10, 10, 10, 5)
+        game_layout.setContentsMargins(10, 5, 10, 5)
+        game_layout.setSpacing(2)
         
         # Top bar with hand info
         top_bar = QHBoxLayout()
@@ -123,8 +124,9 @@ class GameScreen(QWidget):
         self.phase_label = QLabel("")
         self.phase_label.setObjectName("phaseLabel")
         self.phase_label.setFont(QFont("Segoe UI", 11, QFont.Weight.Bold))
+        self.phase_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         
-        self.back_btn = QPushButton("← Back to Setup")
+        self.back_btn = QPushButton("Back to Setup")
         self.back_btn.setStyleSheet("""
             QPushButton {
                 background: transparent;
