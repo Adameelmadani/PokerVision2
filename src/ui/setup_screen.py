@@ -119,7 +119,7 @@ class SeatWidget(QFrame):
             self.name_label.show()
             self.name_input.show()
             self.name_input.setEnabled(True)
-        else:
+        elif data:
             # AI model
             self.avatar_label.setText("AI")
             self.avatar_label.setStyleSheet("color: #ffffff; font-size: 12px;")
@@ -128,6 +128,11 @@ class SeatWidget(QFrame):
             self.name_label.show()
             self.name_input.show()
             self.name_input.setEnabled(True)
+        else:
+            self.avatar_label.setText("--")
+            self.avatar_label.setStyleSheet("color: #555555;")
+            self.name_label.hide()
+            self.name_input.hide()
 
     def get_config(self) -> Tuple[str, Optional[str]]:
         """

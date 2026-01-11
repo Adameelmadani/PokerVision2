@@ -2,6 +2,7 @@
 Main game screen - the poker table view.
 """
 import asyncio
+import os
 import math
 from typing import List, Dict, Optional
 
@@ -21,6 +22,7 @@ from ..engine.game import PokerGame, GameState, GamePhase, Action, ActionType
 from ..engine.deck import Card
 from ..players.human_player import HumanPlayer
 from ..players.ai_player import AIPlayer
+from ..players.rlcard_player import RLCardPlayer
 
 
 class TableWidget(QWidget):
@@ -315,11 +317,31 @@ class GameScreen(QWidget):
                 self.players[seat] = HumanPlayer(seat, name)
                 self.human_seats.append(seat)
             else:
-                self.players[seat] = AIPlayer(
-                    seat, name,
-                    model_path=config.get("model_path"),
-                    thinking_time=1.0
-                )
+                model_path = config.get("model_path")
+                # Try to detect if it's an RLCard model
+                is_rlcard = False
+                if model_path and os.path.exists(model_path):
+                    try:
+                        import torch
+                        checkpoint = torch.load(model_path, map_location='cpu')
+                        # RLCard agents usually have these keys
+                        if 'average_policy' in checkpoint or ('q_network' in checkpoint and 'target_network' in checkpoint):
+                            is_rlcard = True
+                    except:
+                        pass
+                
+                if is_rlcard:
+                    self.players[seat] = RLCardPlayer(
+                        seat, name,
+                        model_path=model_path,
+                        thinking_time=1.0
+                    )
+                else:
+                    self.players[seat] = AIPlayer(
+                        seat, name,
+                        model_path=model_path,
+                        thinking_time=1.0
+                    )
         
         # Setup game players
         self.game.setup_players(player_names)
