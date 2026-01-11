@@ -129,12 +129,13 @@ class PlayerWidget(QFrame):
         self.action_label.setStyleSheet("""
             background: rgba(0, 128, 0, 0.3);
             color: #ffffff;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: bold;
-            border-radius: 8px;
-            padding: 2px 5px;
+            border-radius: 6px;
+            padding: 0px 4px;
         """)
         self.action_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.action_label.setFixedHeight(18)
         self.action_label.hide()
         
         self.bet_label = QLabel("")
@@ -200,8 +201,10 @@ class PlayerWidget(QFrame):
         if show_cards and player.hole_cards:
             if len(player.hole_cards) >= 1:
                 self.card1.set_card(player.hole_cards[0], animate=False)
+                self.card1.show()
             if len(player.hole_cards) >= 2:
                 self.card2.set_card(player.hole_cards[1], animate=False)
+                self.card2.show()
         else:
             if player.hole_cards and not player.is_folded:
                 self.card1._show_back()
@@ -232,10 +235,10 @@ class PlayerWidget(QFrame):
             self.action_label.setStyleSheet("""
                 background: rgba(255, 0, 0, 0.8);
                 color: white;
-                font-size: 11px;
+                font-size: 10px;
                 font-weight: bold;
-                border-radius: 8px;
-                padding: 2px 5px;
+                border-radius: 6px;
+                padding: 0px 4px;
             """)
             self.action_label.show()
 
@@ -346,10 +349,10 @@ class PlayerWidget(QFrame):
         self.action_label.setStyleSheet(f"""
             background: rgba({self._hex_to_rgb(color)}, 0.8);
             color: white;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: bold;
-            border-radius: 8px;
-            padding: 2px 5px;
+            border-radius: 6px;
+            padding: 0px 4px;
         """)
         self.action_label.show()
         
