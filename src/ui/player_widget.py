@@ -8,7 +8,7 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtCore import Qt, QPropertyAnimation, QTimer, QEasingCurve, pyqtSignal
 from PyQt6.QtGui import QFont, QColor
 
-from .card_widget import CardWidget
+from .card_widget import MiniCardWidget
 from ..engine.game import PlayerState, Action, ActionType
 
 
@@ -23,7 +23,7 @@ class PlayerWidget(QFrame):
         self._is_winner = False
         
         self.setObjectName("playerFrame")
-        self.setFixedSize(145, 130)
+        self.setFixedSize(175, 145)
         self._setup_ui()
 
     def _setup_ui(self):
@@ -37,8 +37,8 @@ class PlayerWidget(QFrame):
         """)
         
         main_layout = QVBoxLayout(self)
-        main_layout.setContentsMargins(5, 5, 5, 5)
-        main_layout.setSpacing(2)
+        main_layout.setContentsMargins(0, 0, 0, 0)
+        main_layout.setSpacing(0)
         
         # Top row: Position badges
         top_row = QHBoxLayout()
@@ -51,7 +51,7 @@ class PlayerWidget(QFrame):
             font-weight: bold;
             font-size: 9px;
             border-radius: 8px;
-            padding: 1px 4px;
+            padding: 0px 2px;
         """)
         self.dealer_label.setFixedSize(16, 16)
         self.dealer_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -64,7 +64,7 @@ class PlayerWidget(QFrame):
             font-weight: bold;
             font-size: 10px;
             border-radius: 8px;
-            padding: 2px 6px;
+            padding: 1px 4px;
         """)
         self.blind_label.hide()
         
@@ -112,8 +112,8 @@ class PlayerWidget(QFrame):
         cards_row = QHBoxLayout()
         cards_row.setSpacing(5)
         
-        self.card1 = CardWidget()
-        self.card2 = CardWidget()
+        self.card1 = MiniCardWidget()
+        self.card2 = MiniCardWidget()
         self.card1.setFixedSize(38, 52)
         self.card2.setFixedSize(38, 52)
         
@@ -132,7 +132,7 @@ class PlayerWidget(QFrame):
             font-size: 11px;
             font-weight: bold;
             border-radius: 8px;
-            padding: 3px 8px;
+            padding: 2px 5px;
         """)
         self.action_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.action_label.hide()
@@ -156,13 +156,8 @@ class PlayerWidget(QFrame):
         main_layout.addLayout(cards_row)
         main_layout.addLayout(action_row)
         
-        # Setup glow effect for active player
-        self.glow_effect = QGraphicsDropShadowEffect()
-        self.glow_effect.setBlurRadius(20)
-        self.glow_effect.setColor(QColor(0, 255, 0, 150))
-        self.glow_effect.setOffset(0, 0)
-        self.glow_effect.setEnabled(False)
-        self.setGraphicsEffect(self.glow_effect)
+        # Initial effect state
+        self._update_graphics_effect()
 
     def update_state(self, player: PlayerState, show_cards: bool = False):
         """Update display from player state."""
@@ -184,7 +179,7 @@ class PlayerWidget(QFrame):
                 font-weight: bold;
                 font-size: 10px;
                 border-radius: 8px;
-                padding: 2px 6px;
+                padding: 1px 4px;
             """)
             self.blind_label.show()
         elif player.is_big_blind:
@@ -195,7 +190,7 @@ class PlayerWidget(QFrame):
                 font-weight: bold;
                 font-size: 10px;
                 border-radius: 8px;
-                padding: 2px 6px;
+                padding: 1px 4px;
             """)
             self.blind_label.show()
         else:
@@ -240,7 +235,7 @@ class PlayerWidget(QFrame):
                 font-size: 11px;
                 font-weight: bold;
                 border-radius: 8px;
-                padding: 3px 8px;
+                padding: 2px 5px;
             """)
             self.action_label.show()
 
@@ -260,7 +255,6 @@ class PlayerWidget(QFrame):
     def set_active(self, active: bool):
         """Set whether this player is currently active (their turn)."""
         self._is_active = active
-        self.glow_effect.setEnabled(active)
         
         if active:
             self.setStyleSheet("""
@@ -286,29 +280,45 @@ class PlayerWidget(QFrame):
                     border-radius: 12px;
                 }
             """)
+        
+        self._update_graphics_effect()
+
+    def _update_graphics_effect(self):
+        """Update the graphics effect based on current state."""
+        if self._is_folded:
+            effect = QGraphicsOpacityEffect(self)
+            effect.setOpacity(0.5)
+            self.setGraphicsEffect(effect)
+        elif self._is_winner:
+            effect = QGraphicsDropShadowEffect(self)
+            effect.setBlurRadius(30)
+            effect.setColor(QColor(255, 255, 255, 200))
+            effect.setOffset(0, 0)
+            self.setGraphicsEffect(effect)
+        elif self._is_active:
+            effect = QGraphicsDropShadowEffect(self)
+            effect.setBlurRadius(20)
+            effect.setColor(QColor(0, 255, 0, 150))
+            effect.setOffset(0, 0)
+            self.setGraphicsEffect(effect)
+        else:
+            self.setGraphicsEffect(None)
 
     def set_folded(self, folded: bool):
         """Set folded visual state."""
         self._is_folded = folded
         
         if folded:
-            opacity_effect = QGraphicsOpacityEffect()
-            opacity_effect.setOpacity(0.5)
-            self.setGraphicsEffect(opacity_effect)
             self.card1.hide()
             self.card2.hide()
-        else:
-            self.setGraphicsEffect(self.glow_effect)
+        
+        self._update_graphics_effect()
 
     def set_winner(self, is_winner: bool):
         """Highlight as winner."""
         self._is_winner = is_winner
         
         if is_winner:
-            self.glow_effect.setColor(QColor(255, 255, 255, 200))
-            self.glow_effect.setBlurRadius(30)
-            self.glow_effect.setEnabled(True)
-            
             self.setStyleSheet("""
                 QFrame#playerFrame {
                     background: rgba(255, 255, 255, 0.2);
@@ -316,10 +326,8 @@ class PlayerWidget(QFrame):
                     border-radius: 12px;
                 }
             """)
-        else:
-            self.glow_effect.setColor(QColor(0, 255, 0, 150))
-            self.glow_effect.setBlurRadius(20)
-            self.glow_effect.setEnabled(False)
+        
+        self._update_graphics_effect()
 
     def show_action(self, action: Action):
         """Display player's action briefly."""
@@ -341,7 +349,7 @@ class PlayerWidget(QFrame):
             font-size: 11px;
             font-weight: bold;
             border-radius: 8px;
-            padding: 3px 8px;
+            padding: 2px 5px;
         """)
         self.action_label.show()
         

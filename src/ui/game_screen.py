@@ -251,9 +251,9 @@ class GameScreen(QWidget):
         positions = [
             (tw * 0.27, 20),           # 1: Top left
             (tw * 0.62, 20),           # 2: Top right
-            (tw * 0.85, th * 0.40),    # 3: Right
-            (tw * 0.62, th * 0.73),    # 4: Bottom right
-            (tw * 0.27, th * 0.73),    # 5: Bottom left
+            (tw * 0.83, th * 0.40),    # 3: Right
+            (tw * 0.62, th * 0.71),    # 4: Bottom right
+            (tw * 0.27, th * 0.71),    # 5: Bottom left
             (tw * 0.04, th * 0.40),    # 6: Left
         ]
         

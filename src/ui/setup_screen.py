@@ -64,7 +64,7 @@ class SeatWidget(QFrame):
         self.type_combo.setFixedWidth(130)
         self.type_combo.setStyleSheet("""
             QComboBox {
-                padding: 3px 3px;
+                padding: 3px 3px 3px 10px;
                 margin-top: 2px;
             }
         """)
@@ -81,7 +81,7 @@ class SeatWidget(QFrame):
         self.name_input.setMaxLength(15)
         self.name_input.setStyleSheet("""
             QLineEdit {
-                padding: 3px 3px;
+                padding: 3px 3px 3px 10px;
                 margin-top: 2px;
             }
         """)
@@ -197,7 +197,7 @@ class SetupScreen(QWidget):
         self.seat_widgets = []
         for i in range(6):
             seat = SeatWidget(i, self.models)
-            seat.setFixedSize(195, 175)
+            seat.setFixedSize(205, 175)
             self.seat_widgets.append(seat)
         
         # Position seats in grid (2-row layout for compactness)
@@ -222,7 +222,7 @@ class SetupScreen(QWidget):
         
         # Game settings
         settings_group = QGroupBox("Game Settings")
-        settings_group.setFont(QFont("Segoe UI", 10))
+        settings_group.setFont(QFont("Segoe UI", 14))
         settings_layout = QHBoxLayout(settings_group)
         settings_layout.setSpacing(20)
         

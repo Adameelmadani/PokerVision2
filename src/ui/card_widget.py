@@ -235,6 +235,7 @@ class MiniCardWidget(QFrame):
         
         color = "#cc0000" if card.suit.color == "red" else "#000000"
         
+        self.suit_label.setStyleSheet("")
         self.setStyleSheet(f"""
             QFrame {{
                 background: #fefefe;
@@ -249,9 +250,8 @@ class MiniCardWidget(QFrame):
         self.rank_label.setText(card.rank.symbol)
         self.suit_label.setText(card.suit.symbol)
 
-    def clear(self):
-        """Clear the card."""
-        self._card = None
+    def _show_back(self):
+        """Show card back."""
         self._face_up = False
         
         self.setStyleSheet("""
@@ -261,7 +261,16 @@ class MiniCardWidget(QFrame):
                 border: 2px solid #ffffff;
                 border-radius: 6px;
             }
+            QLabel {
+                color: transparent;
+            }
         """)
         
         self.rank_label.setText("")
-        self.suit_label.setText("")
+        self.suit_label.setText("🂠")
+        self.suit_label.setStyleSheet("color: #ffffff; font-size: 20px;")
+
+    def clear(self):
+        """Clear the card."""
+        self._card = None
+        self._show_back()
