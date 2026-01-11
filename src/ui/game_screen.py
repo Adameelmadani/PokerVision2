@@ -205,7 +205,7 @@ class GameScreen(QWidget):
         self.winner_label.hide()
         
         # Next hand button
-        self.next_hand_btn = QPushButton("Next Hand →", self.table_widget)
+        self.next_hand_btn = QPushButton("Next Hand", self.table_widget)
         self.next_hand_btn.setFont(QFont("Segoe UI", 11, QFont.Weight.Bold))
         self.next_hand_btn.setStyleSheet("""
             QPushButton {
@@ -248,9 +248,9 @@ class GameScreen(QWidget):
         # Positions: 0=top-left, 1=top-right, 2=right, 3=bottom-right, 4=bottom-left, 5=left
         positions = [
             (tw * 0.27, 20),           # 1: Top left
-            (tw * 0.60, 20),           # 2: Top right
+            (tw * 0.62, 20),           # 2: Top right
             (tw * 0.85, th * 0.40),    # 3: Right
-            (tw * 0.60, th * 0.73),    # 4: Bottom right
+            (tw * 0.62, th * 0.73),    # 4: Bottom right
             (tw * 0.27, th * 0.73),    # 5: Bottom left
             (tw * 0.04, th * 0.40),    # 6: Left
         ]
@@ -262,7 +262,7 @@ class GameScreen(QWidget):
         # Community cards - center of table
         self.community_container.move(
             int((tw - self.community_container.width()) / 2),
-            int((th - self.community_container.height()) / 2 - 20)
+            int((th - self.community_container.height()) / 2)
         )
         
         # Pot label - above community cards
@@ -276,13 +276,13 @@ class GameScreen(QWidget):
         self.winner_label.adjustSize()
         self.winner_label.move(
             int((tw - self.winner_label.width()) / 2),
-            int((th - self.winner_label.height()) / 2 + 60)
+            int((th - self.winner_label.height()) / 2 + 80)
         )
         
         # Next hand button - below winner
         self.next_hand_btn.move(
             int((tw - self.next_hand_btn.width()) / 2),
-            int((th - self.next_hand_btn.height()) / 2 + 120)
+            int((th - self.next_hand_btn.height()) / 2 + 150)
         )
 
     def start_game(self, player_configs: List[dict], chips: int, sb: int, bb: int):
@@ -512,9 +512,9 @@ class GameScreen(QWidget):
         
         # Show winner message
         if hand_result:
-            msg = f"🏆 {', '.join(winner_names)} wins ${amount:,}\n{hand_result.description}"
+            msg = f"{', '.join(winner_names)} wins ${amount:,}\n{hand_result.description}"
         else:
-            msg = f"🏆 {', '.join(winner_names)} wins ${amount:,}"
+            msg = f"{', '.join(winner_names)} wins ${amount:,}"
         
         self.winner_label.setText(msg)
         self.winner_label.adjustSize()
