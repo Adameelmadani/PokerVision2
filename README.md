@@ -1,12 +1,14 @@
-# 🃏 Apprentissage par Renforcement Multi-Agent pour le Texas Hold'em No-Limit
+# Apprentissage par Renforcement Multi-Agent pour le Texas Hold'em No-Limit
 
 ## Aperçu du Projet
 
 Ce projet implémente et compare **trois algorithmes d'Apprentissage par Renforcement de pointe** pour jouer au **Texas Hold'em No-Limit à 6 joueurs**. Le système propose à la fois un entraînement d'agents individuels et un paradigme unique d'**entraînement multi-agent** où divers agents apprennent simultanément à une même table.
 
+<img src="demo/demo.gif">
+
 ---
 
-## 🎰 Comprendre le Texas Hold'em Poker
+## Comprendre le Texas Hold'em Poker
 
 ### Qu'est-ce que le Poker ?
 Le Texas Hold'em est un **jeu de poker à cartes communes** où les joueurs s'affrontent pour gagner des jetons en :
@@ -72,7 +74,7 @@ Chaque phase comporte un tour de mises où les joueurs peuvent :
 
 ---
 
-## 🎯 Objectifs
+## Objectifs
 
 1. **Implémenter des Algorithmes RL pour le Poker** : Entraîner des agents DQN, NFSP et CFR avec le framework RLCard
 2. **Environnement d'Entraînement Multi-Agent** : Créer un setup collaboratif/compétitif avec 6 agents apprenant ensemble
@@ -81,7 +83,7 @@ Chaque phase comporte un tour de mises où les joueurs peuvent :
 
 ---
 
-## 🤖 Algorithmes d'Apprentissage par Renforcement
+## Algorithmes d'Apprentissage par Renforcement
 
 ### 1. Deep Q-Network (DQN)
 **Catégorie** : RL Basé sur la Valeur
@@ -127,7 +129,7 @@ Chaque phase comporte un tour de mises où les joueurs peuvent :
 
 ---
 
-## 🏗️ Architecture du Système
+## Architecture du Système
 
 ```
 PokerVision2/
@@ -161,7 +163,7 @@ PokerVision2/
 
 ---
 
-## 🎮 Paradigmes d'Entraînement
+## Paradigmes d'Entraînement
 
 ### Entraînement Normal (Auto-Jeu)
 ```
@@ -188,7 +190,7 @@ Chaque agent s'entraîne contre des adversaires DQN statiques dans un environnem
 
 ---
 
-## 📊 Méthodologie d'Évaluation
+## Méthodologie d'Évaluation
 
 ### Tournoi Confrontation Directe
 Format round-robin : chaque agent joue 1000 parties contre chaque autre agent.
@@ -204,7 +206,7 @@ Format round-robin : chaque agent joue 1000 parties contre chaque autre agent.
 
 ---
 
-## 🔬 Détails Techniques
+## Détails Techniques
 
 ### Représentation d'État (54 dimensions)
 ```
@@ -230,7 +232,7 @@ Format round-robin : chaque agent joue 1000 parties contre chaque autre agent.
 
 ---
 
-## 🛠️ Technologies Utilisées
+## Technologies Utilisées
 
 | Technologie | Objectif |
 |-------------|----------|
@@ -243,7 +245,7 @@ Format round-robin : chaque agent joue 1000 parties contre chaque autre agent.
 
 ---
 
-## 🚀 Comment Exécuter
+## Comment Exécuter
 
 ```bash
 # Entraîner les agents individuels
@@ -261,7 +263,7 @@ python main.py
 
 ---
 
-## 📋 Points Clés à Retenir
+## Points Clés à Retenir
 
 1. **RL pour les Jeux** : Démontre l'application du RL moderne aux jeux multi-joueurs complexes
 2. **Comparaison d'Algorithmes** : Comparaison pratique des approches basées sur la valeur (DQN), théorie des jeux (NFSP) et minimisation du regret (CFR)
@@ -270,7 +272,7 @@ python main.py
 
 ---
 
-## 📚 Références
+## Références
 
 1. Mnih et al. (2015) - *Human-level control through deep reinforcement learning* (DQN)
 2. Heinrich & Silver (2016) - *Deep Reinforcement Learning from Self-Play in Imperfect-Information Games* (NFSP)
@@ -280,8 +282,6 @@ python main.py
 
 ---
 
-## 👤 Auteur
+## License
 
-**Adam Elmadani**  
-Projet de Cours d'Apprentissage par Renforcement  
-Janvier 2026
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
